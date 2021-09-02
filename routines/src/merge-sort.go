@@ -1,20 +1,26 @@
+// to run:  go run merge-sort.go crap-generator.go
 package main
 
 import (
-  "fmt"
-  "time"
+	"fmt"
+	"time"
 )
 
 func getData() []int{
-  return []int{4,3,2,6,1,13,2,3,2,6,7,8,0,9,12,10,11,15,14,0}
+  start := time.Now()
+  data := GenerateCrap(1000000, 10, 999999)
+  fmt.Println(time.Now().Sub(start));
+  return data
 }
 
 func main() {
+  startAll := time.Now()
+  array := getData()
   start := time.Now()
-  array := getData();
   array = mergeSort(array);
-  fmt.Println(array);
+  // fmt.Println(array);
   fmt.Println(time.Now().Sub(start));
+  fmt.Println(time.Now().Sub(startAll));
 }
 
 func mergeSort(array []int) []int{

@@ -1,27 +1,26 @@
 package main
 
 import (
-    "fmt"
-    "math/rand"
-    "time"
-	"sync"
+	"math/rand"
 	"runtime"
+	"sync"
+	"time"
 )
 
 func generateCrapWorker(size int, min int, max int, out chan []int, wg *sync.WaitGroup) {
 	crap := make([]int, size)
-
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < size; i++ {
-		crap[i] = rand.Intn(1000) + min
+		crap[i] = rand.Intn(max - min) + min
 	}
-	fmt.Println(crap)
 	out <- crap
 
 	defer wg.Done()
+
+	
 }
 
-func generateCrap(size int, min int, max int) []int {
+func GenerateCrap(size int, min int, max int) []int {
 	cpuCount := runtime.NumCPU()
 	out := make(chan []int, cpuCount)
 	var wg sync.WaitGroup
@@ -30,7 +29,7 @@ func generateCrap(size int, min int, max int) []int {
 
 	for i := 0; i < cpuCount; i++ {
 		wg.Add(1)
-		go generateCrapWorker(workerSize, max, min, out, &wg)
+		go generateCrapWorker(workerSize, min, max, out, &wg)
 	}
 
 	wg.Wait()
@@ -45,11 +44,10 @@ func generateCrap(size int, min int, max int) []int {
 	return result
 }
 
-func main(){
-	start := time.Now()
+// func main(){
+// 	start := time.Now()
 
-	crap := generateCrap(1000000, 10, 30)
-	fmt.Println(crap)
+// 	GenerateCrap(1000000, 10, 999999)
 
-	fmt.Println(time.Now().Sub(start))
-}
+// 	fmt.Println(time.Now().Sub(start))
+// }
