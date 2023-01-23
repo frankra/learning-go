@@ -11,13 +11,12 @@ func generateCrapWorker(size int, min int, max int, out chan []int, wg *sync.Wai
 	crap := make([]int, size)
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < size; i++ {
-		crap[i] = rand.Intn(max - min) + min
+		crap[i] = rand.Intn(max-min) + min
 	}
 	out <- crap
 
 	defer wg.Done()
 
-	
 }
 
 func GenerateCrap(size int, min int, max int) []int {
@@ -35,12 +34,12 @@ func GenerateCrap(size int, min int, max int) []int {
 	wg.Wait()
 	close(out)
 
-	result := make([]int, 0);
+	result := make([]int, 0)
 	for slice := range out {
-		
+
 		result = append(result, slice...)
 	}
-	
+
 	return result
 }
 
