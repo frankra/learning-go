@@ -16,7 +16,7 @@ func buildSQLConnectionString(user, password, host, port, schema string) string 
 }
 
 func spawnRunners(db *sqlx.DB) {
-	lockNames := []string{"lock1", "lock2", "lock2", "lock1", "lock3", "lock4"}
+	lockNames := []string{"lock1", "lock2", "lock2", "lock1"}
 
 	for _, lockName := range lockNames {
 		go runner(db, lockName)
