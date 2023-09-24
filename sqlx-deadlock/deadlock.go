@@ -5,6 +5,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 )
@@ -27,6 +28,7 @@ func runner(db *sqlx.DB, lockName string) {
 	res, err := db.Exec("select get_lock(?, ?)", lockName, -1)
 	if err != nil {
 		log.Fatalln(err)
+		fmt.Print(err.(*mysql.MySQLError).Number)
 	}
 	fmt.Printf("Get lock for %s %v \n", lockName, res)
 }
