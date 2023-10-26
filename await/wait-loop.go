@@ -6,9 +6,8 @@ import (
 )
 
 type EventToBeSent struct {
-	ID string
+	ID     string
 	Target string
-	EventType
 }
 
 func main() {
