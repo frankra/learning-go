@@ -17,7 +17,7 @@ type Node struct {
 func (n *Node) Print() {
 	prefix := ""
 	for i := 0; i < n.Depth; i++ {
-		prefix += " "
+		prefix += "_"
 
 	}
 	fmt.Printf("%s%s\n", prefix, n.Name)
@@ -37,7 +37,7 @@ func main() {
 	root := &Node{
 		Depth:    0,
 		IsDir:    true,
-		Name:     ".",
+		Name:     "/",
 		Children: []*Node{},
 	}
 
